@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .header {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        .navbar {
+            background-color: #f0f0f0;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px 0;
+        }
+
+        .product {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .product-img img {
+            width: 200px;
+            height: auto;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Welcome to Shop!</h1>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Sign out</button>
+    </form>
+    <div><a href="orders?">Xem đơn hàng</a></div>
+</div>
+
+<nav class="navbar">
+    <ul class="nav-list">
+        <li><a th:href="@{/}">All</a></li>
+        <li><a th:href="@{/catalog1}">Catalog 1</a></li>
+        <li><a th:href="@{/catalog2}">Catalog 2</a></li>
+    </ul>
+</nav>
+
+<div class="product-list">
+    <div class="product" th:each="product: ${products}" th:object="${product}">
+        <div class="Product-div">
+            <div class="product-img"><img th:src="*{picture}" alt="Product Image"/></div>
+            <div class="product-name"><b><span th:text="*{name}"></span></b></div>
+            <div class="product-price"><b><span th:text="*{price}"></span></b> đ</div>
+        </div>
+        <form th:action="@{/purchase/{productId}(productId=${product.id})}" method="get">
+            <button type="submit">Buy</button>
+        </form>
+    </div>
+</div>
+<div class="footer">
+    <p>© 2024 - Bản quyền thuộc về Dao Nhat Minh, Samsung SDS Viet Nam</p>
+</div>
+</body>
+</html>
